@@ -6,6 +6,8 @@ let posExclude = ["*", "*", "*", "*", "*"];
 
 const btn = document.getElementById("run");
 btn.addEventListener("click", setup);
+const btn2 = document.getElementById("clean");
+btn2.addEventListener("click", clean);
 const allWordsBox = document.getElementById("wordContainer");
 
 for (let j = 1; j <= 6; j++) {
@@ -37,26 +39,64 @@ function setup() {
     .querySelectorAll(".rightSpot")
     .forEach((letter) => (rightPos[letter.id[3] - 1] = letter.value));
   turn++;
+   try {
   setWord(turn, getWord());
+   }catch(err) {
+ console.log(err.message);
+    include = "";
+    exclude = "";
+    rightPos = ["*", "*", "*", "*", "*"];
+    posExclude = ["*", "*", "*", "*", "*"];
+    turn--;
+     alert("No Word Found");
+}
 }
 function includeForEach(letter) {
   posExclude[letter.id[3]] += letter.value;
   include += letter.value;
 }
+
 function setWord(resultNum, word) {
   for (let i = 0; i < 5; i++) {
-    document.getElementById("w" + resultNum + "l" + (i + 1)).value =
-      word[i].toUpperCase();
+    const letterBox = document.getElementById("w" + resultNum + "l" + (i + 1))
+    letterBox.value = word[i].toUpperCase();
+    
+    if (rightPos[i].toUpperCase() == word[i].toUpperCase()){
+       letterBox.classList.add("rightSpot");
+    }else if (include.includes(word[i].toUpperCase())){
+      letterBox.classList.add("include");
+    }else{
+    letterBox.classList.add("exclude");
+    }
   }
 }
-
+function clean(){
+  for (let i = 6 ; i > 0 ; i--){
+    console.log("w"+i+"l1")
+    if (document.getElementById("w"+i+"l1").value !=""){
+      document.getElementById("w"+i+"l1").value = "";
+      document.getElementById("w"+i+"l1").setAttribute("class", "letter");
+      document.getElementById("w"+i+"l2").value = "";
+      document.getElementById("w"+i+"l2").setAttribute("class", "letter");
+      document.getElementById("w"+i+"l3").value = "";
+      document.getElementById("w"+i+"l3").setAttribute("class", "letter");
+      document.getElementById("w"+i+"l4").value = "";
+      document.getElementById("w"+i+"l4").setAttribute("class", "letter");
+      document.getElementById("w"+i+"l5").value = "";
+      document.getElementById("w"+i+"l5").setAttribute("class", "letter");
+      turn--;
+      break;
+    }
+  }
+}
 function getWord() {
-  wIncludes = words.filter(filterInclude);
-  wExcludes = wIncludes.filter(filterExclude);
-  wGuess = wExcludes.filter(filterGuess);
-  wPosExcludes = wGuess.filter(filterPosExclude);
+  const wIncludes = words.filter(filterInclude);
+  const wExcludes = wIncludes.filter(filterExclude);
+  const wGuess = wExcludes.filter(filterGuess);
+  const wPosExcludes = wGuess.filter(filterPosExclude);
   const w = wPosExcludes.sort(sortFreq).splice(0, 100).sort(sortLetters);
   return w[0].word;
+
 }
 
 function filterInclude(word) {
@@ -136,8 +176,10 @@ function changeClass(e) {
       t.classList.add("rightSpot");
     } else if (t.classList.contains("rightSpot")) {
       t.classList.remove("rightSpot");
-    } else {
       t.classList.add("exclude");
+    }else{
+        t.classList.add("exclude");
+      
     }
   }
 }
