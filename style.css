@@ -17,6 +17,22 @@ body {
   margin: 2px;
   padding: 10px;
 }
+@media only screen and (max-width: 600px) {
+  .letter {
+  width: 25px;
+  height: 25px;
+  font-size: 1rem;
+  line-height: 2rem;
+  font-weight: bold;
+
+}
+}
+button{
+  height:50px;
+  width:120px;
+  font-size: 1.3rem;
+  margin: 6px;
+}
 .rightSpot {
   color: #ffffff;
   background-color: #538d4e;
