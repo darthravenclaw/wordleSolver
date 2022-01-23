@@ -1,0 +1,31 @@
+body {
+  background-color: #ffffff;
+  align-items: center;
+  text-align: center;
+}
+.letter {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #d3d6da;
+  align-items: center;
+  text-align: center;
+  font-size: 2rem;
+  line-height: 2rem;
+  font-weight: bold;
+  vertical-align: middle;
+  color: #1a1a1c;
+  margin: 2px;
+  padding: 10px;
+}
+.rightSpot {
+  color: #ffffff;
+  background-color: #538d4e;
+}
+.include {
+  color: #ffffff;
+  background-color: #b59f3b;
+}
+.exclude {
+  color: #ffffff;
+  background-color: #3a3a3c;
+}
